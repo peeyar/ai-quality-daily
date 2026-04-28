@@ -1,0 +1,120 @@
+
+======================================================================
+Task 1 (simple)
+Query:    Find me Python jobs in Seattle
+Expected: single search, return list
+======================================================================
+
+Answer:
+I couldn't find any Python jobs in Seattle. Is there another location you'd like to search, or perhaps a different job title?
+
+Messages: 4
+
+======================================================================
+Task 2 (filtered)
+Query:    Find me 3 ML engineer roles at startups
+Expected: search then filter to 3 results
+======================================================================
+
+Answer:
+I couldn't find any ML engineer roles at startups. I can try searching for something else if you'd like.
+
+Messages: 4
+
+======================================================================
+Task 3 (filtered_with_fetch)
+Query:    Senior backend roles paying over $200k
+Expected: search, fetch descriptions, filter by salary
+======================================================================
+
+Answer:
+I couldn't find any jobs matching "Senior backend roles". I also can't filter by salary, so I'm unable to guarantee jobs paying over $200k.
+
+Messages: 4
+
+======================================================================
+Task 4 (filtered_with_fetch)
+Query:    Remote roles, no PhD required
+Expected: search, fetch, read requirements
+======================================================================
+
+Answer:
+I couldn't find any remote roles that explicitly state "no PhD required." Would you like me to search for remote roles without that specific exclusion?
+
+Messages: 4
+
+======================================================================
+Task 5 (fetch_then_search)
+Query:    Find me roles like the one at https://example.com/jobs/job_001
+Expected: fetch first, then search by similarity
+======================================================================
+
+Answer:
+I couldn't find any jobs matching the description of a Senior Python Engineer with experience in distributed systems, offering a hybrid work arrangement in Seattle.
+
+Messages: 6
+
+======================================================================
+Task 6 (multi_fetch)
+Query:    Compare these two listings: job_001 and job_003
+Expected: two fetches, structured comparison
+======================================================================
+
+Answer:
+I can't find any jobs matching "job_001" or "job_003". Please provide actual job titles or descriptions so I can help you compare them.
+
+Messages: 6
+
+======================================================================
+Task 7 (vague)
+Query:    What's hot in AI hiring this week?
+Expected: should ask for clarification or interpret reasonably without infinite loop
+======================================================================
+
+Answer:
+I couldn't find any jobs matching "AI jobs" this week. I can try a different query if you like.
+
+Messages: 4
+
+======================================================================
+Task 8 (missing_metadata)
+Query:    Find me jobs but only at companies under 50 people
+Expected: should admit company size is not in tool data
+======================================================================
+
+Answer:
+I can't filter jobs by company size. I can search for jobs based on other criteria if you'd like.
+
+Messages: 2
+
+======================================================================
+Task 9 (multi_filter)
+Query:    Senior MLE under $180k that don't require a PhD
+Expected: search, fetch, apply 3 filters at once
+======================================================================
+
+Answer:
+I'm sorry, I can't find any jobs matching "Senior MLE". Would you like to try a different search query?
+
+Messages: 4
+
+======================================================================
+Task 10 (missing_tool)
+Query:    Save my top 3 to a file
+Expected: should refuse cleanly, no save tool exists
+======================================================================
+
+Answer:
+I can't save files. I can help you find jobs, though. What kind of job are you looking for?
+
+Messages: 2
+
+
+======================================================================
+SUMMARY
+======================================================================
+Total tasks: 10
+Errored:     0
+Completed:   10
+
+Mark each task pass/fail manually based on the output above.

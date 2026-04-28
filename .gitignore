@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Virtual envs
+.venv/
+venv/
+env/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test / eval outputs
+.pytest_cache/
+.coverage
+htmlcov/
+eval/results/local/
+
+# Logs
+*.log
+
+# Archive (old versions before the rebuild)
+_archive/
+
+v1-run-results.txt

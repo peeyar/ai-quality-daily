@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "jobscout"
+version = "0.1.0"
+description = "Job-search agent built across the AI Agents series on AI Quality Daily"
+authors = ["Rajesh Kartha <rajesh.p.kartha@gmail.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+# Core agent stack — needed from v1
+langgraph = "^0.2.0"
+langchain = "^0.3.0"
+langchain-core = "^0.3.0"
+langchain-google-genai = "^2.0.0"
+pydantic = "^2.0"
+python-dotenv = "^1.0.0"
+
+# Future versions will add (uncomment when needed):
+# mcp = "*"                       # v4 / P5
+# arize-phoenix = "*"             # v5 / P7
+# deepeval = "*"                  # v5 / P7
+# llmlingua = "*"                 # v7 / P12
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0"
+pytest-asyncio = "^0.23"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
