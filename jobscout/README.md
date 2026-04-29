@@ -4,6 +4,9 @@ A job-search agent built in public, post by post, across 10 days.
 
 This repo is the companion to the **AI Agents series** on [AI Quality Daily](https://rajeshkartha.substack.com). Each post adds one new capability to JobScout and one new metric to measure it. By the end, JobScout goes from a single LangGraph agent to a multi-agent system with MCP tools, A2A endpoints, observability, guardrails, and cost controls.
 
+ **Note for early visitors:** This series ships post-by-post. Code lands in the  repo before each post publishes — so you may see versions ahead of the 
+companion post. The roadmap table below shows the pairing.
+
 ## The series roadmap
 
 | Day | Post | Folder | What's added |
