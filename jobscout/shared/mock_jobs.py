@@ -13,7 +13,7 @@ MOCK_JOBS: list[dict] = [
     {
         "url": "https://example.com/jobs/job_001",
         "title": "Senior Python Engineer",
-        "company": "Acme Corp",
+        "company": "Rajesh Corp",
         "location": "Seattle, WA",
         "remote": "hybrid",
         "salary": "$180,000 - $220,000",
@@ -26,7 +26,7 @@ MOCK_JOBS: list[dict] = [
     {
         "url": "https://example.com/jobs/job_002",
         "title": "ML Engineer",
-        "company": "Tinybird Labs",
+        "company": "Peeyar Labs",
         "location": "San Francisco, CA",
         "remote": "remote",
         "salary": "$170,000 - $210,000",
