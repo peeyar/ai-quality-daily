@@ -2,7 +2,7 @@
 
 The simplest working agent: one LLM, two tools, ReAct loop.
 
-**Companion post:** [P2: Build your first JobScout](https://rajeshkartha.substack.com)
+**Companion post:** [P2: Build your first JobScout Agent](https://open.substack.com/pub/rajeshkartha/p/i-built-my-first-agent-in-80-lines?r=6rlhak&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true)
 
 ## What this version has
 

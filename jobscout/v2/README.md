@@ -3,7 +3,7 @@
 The same agent loop as v1, but the LLM now decomposes natural-language queries
 into structured fields, and the state remembers what's already been tried.
 
-**Companion post:** [P3: Structured outputs and memory](https://rajeshkartha.substack.com)
+**Companion post:** [P3: Structured outputs and memory](https://open.substack.com/pub/rajeshkartha/p/pydantic-doubled-my-agents-pass-rate?r=6rlhak&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true)
 
 ## What this version adds over v1
 
