@@ -42,3 +42,9 @@ eval/results/local/
 _archive/
 
 v1-run-results.txt
+
+# Editor configs (personal)
+.vscode/
+
+jobscout/**/SPEC.md
+jobscout/**/QUICKSTART.md
