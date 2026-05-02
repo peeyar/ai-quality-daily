@@ -1,0 +1,9 @@
+
+=== JobScout v4 result ===
+
+Here is the fit analysis for the Senior Python Engineer role at Rajesh Corp (https://example.com/jobs/job_001): The fit score is 35/100. You show a good match with Distributed systems, Large-scale data services, and Microservices, but have gaps in explicit Python experience (primary language, 6+ years) and formal research experience.
+
+=== Plan: 0 searches, 1 fetches, 0 filters ===
+=== Searcher: 0 hits, 1 fetched, 0 empty queries ===
+=== Fit analyses: 1 ===
+   https://example.com/jobs/job_001: 35/100

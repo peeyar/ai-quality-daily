@@ -17,8 +17,10 @@ langchain-google-genai = "^2.0.0"
 pydantic = "^2.0"
 python-dotenv = "^1.0.0"
 
+# Added in v4 / P5
+mcp = "^1.0"
+
 # Future versions will add (uncomment when needed):
-# mcp = "*"                       # v4 / P5
 # arize-phoenix = "*"             # v5 / P7
 # deepeval = "*"                  # v5 / P7
 # llmlingua = "*"                 # v7 / P12

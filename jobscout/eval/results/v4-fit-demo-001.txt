@@ -1,0 +1,45 @@
+
+=== JobScout v4 result ===
+
+Here is the fit analysis for the Senior Python Engineer role at Rajesh Corp:
+- Fit Score: 15/100
+- Matching Keywords: Distributed systems, Large-scale data services, Microservices
+- Missing Keywords: Python (6+ years), PhD or equivalent research experience
+The overall fit is poor, primarily due to a critical lack of Python experience. Strengths include extensive experience in distributed systems and large-scale data services.
+
+=== Plan: 0 searches, 1 fetches, 0 filters ===
+=== Searcher: 0 hits, 1 fetched, 0 empty queries ===
+=== Fit analyses: 1 ===
+   https://example.com/jobs/job_001: 15/100
+
+=== JobScout v4 result ===
+
+Here are the fit analyses for the provided jobs:
+- Job 001 (https://example.com/jobs/job_001): Fit Score: 35/100. Matches: ['Distributed systems', 'Large-scale data services', 'Microservices']. Missing: ['Python (as a primary development language)', '6+ years Python experience', 'PhD or equivalent research experience (formal)'].
+- Job 003 (https://example.com/jobs/job_003): Fit Score: 45/100. Matches: ['high-throughput services', 'on-call rotation', 'payments platform']. Missing: ['Go', 'Python'].
+
+=== Plan: 0 searches, 2 fetches, 0 filters ===
+=== Searcher: 0 hits, 2 fetched, 0 empty queries ===
+=== Fit analyses: 2 ===
+   https://example.com/jobs/job_001: 35/100
+   https://example.com/jobs/job_003: 45/100
+Error parsing SSE message
+Traceback (most recent call last):
+  File "/Users/rajeshkartha/Projects/Ai-initiatives/ai-quality-daily/jobscout/.venv/lib/python3.14/site-packages/mcp/client/streamable_http.py", line 229, in _handle_sse_event
+    await read_stream_writer.send(session_message)
+  File "/Users/rajeshkartha/Projects/Ai-initiatives/ai-quality-daily/jobscout/.venv/lib/python3.14/site-packages/anyio/streams/memory.py", line 249, in send
+    self.send_nowait(item)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/rajeshkartha/Projects/Ai-initiatives/ai-quality-daily/jobscout/.venv/lib/python3.14/site-packages/anyio/streams/memory.py", line 218, in send_nowait
+    raise ClosedResourceError
+anyio.ClosedResourceError
+[v4 MCP] CareerTailor server unreachable: 
+[v4 MCP] CareerTailor server unreachable: 
+[v4 MCP] CareerTailor server unreachable: 
+
+=== JobScout v4 result ===
+
+To recommend which of the listed jobs you should apply to based on resume fit, I would need to see your resume. Without it, I cannot assess the fit for each role.
+
+=== Plan: 0 searches, 3 fetches, 0 filters ===
+=== Searcher: 0 hits, 3 fetched, 0 empty queries ===

@@ -1,0 +1,146 @@
+
+======================================================================
+Task 1 (simple)
+Query:    Find me Python jobs in Seattle
+Expected: single search, return list
+======================================================================
+
+Answer:
+Senior Python Engineer at Rajesh Corp (https://example.com/jobs/job_001), Python Backend Developer at Initech (https://example.com/jobs/job_008)
+
+Plan: 1 searches, 0 fetches, 0 filters, 0 fit-for
+Searcher: 2 hits, 0 fetched, 0 empty queries
+
+======================================================================
+Task 2 (filtered)
+Query:    Find me 3 ML engineer roles at startups
+Expected: search then filter to 3 results
+======================================================================
+
+Answer:
+1. ML Engineer at Peeyar Labs (https://example.com/jobs/job_002) 2. Senior ML Engineer at Foom (https://example.com/jobs/job_007) 3. Senior ML Engineer at Nimbus (https://example.com/jobs/job_015)
+
+Plan: 1 searches, 0 fetches, 1 filters, 0 fit-for
+Searcher: 5 hits, 5 fetched, 0 empty queries
+
+======================================================================
+Task 3 (filtered_with_fetch)
+Query:    Senior backend roles paying over $200k
+Expected: search, fetch descriptions, filter by salary
+======================================================================
+
+Answer:
+Senior Backend Engineer at MegaScale Systems ($210,000 - $260,000)
+
+Plan: 1 searches, 0 fetches, 1 filters, 0 fit-for
+Searcher: 1 hits, 1 fetched, 0 empty queries
+
+======================================================================
+Task 4 (filtered_with_fetch)
+Query:    Remote roles, no PhD required
+Expected: search, fetch, read requirements
+======================================================================
+
+Answer:
+No jobs found matching the criteria.
+
+Plan: 1 searches, 0 fetches, 1 filters, 0 fit-for
+Searcher: 0 hits, 0 fetched, 1 empty queries
+
+======================================================================
+Task 5 (fetch_then_search)
+Query:    Find me roles like the one at https://example.com/jobs/job_001
+Expected: fetch first, then search by similarity
+======================================================================
+
+Answer:
+Keywords: "Senior Python Engineer" and "large-scale data services". Similar roles would include Senior Data Engineer, Senior Backend Engineer, or Research Engineer positions, especially those focusing on Python and distributed systems.
+
+Plan: 0 searches, 1 fetches, 0 filters, 0 fit-for
+Searcher: 0 hits, 1 fetched, 0 empty queries
+
+======================================================================
+Task 6 (multi_fetch)
+Query:    Compare these two listings: job_001 and job_003
+Expected: two fetches, structured comparison
+======================================================================
+
+Answer:
+Senior Python Engineer (Rajesh Corp) vs. Senior Backend Engineer (MegaScale Systems)
+
+Rajesh Corp:
+Title: Senior Python Engineer
+Location: Seattle, WA
+Remote: hybrid
+Salary: $180,000 - $220,000
+Description: Build large-scale data services. Requires 6+ years Python, distributed systems, and a PhD or equivalent research experience. Hybrid in Seattle, 3 days a week.
+
+MegaScale Systems:
+Title: Senior Backend Engineer
+Location: New York, NY
+Remote: hybrid
+Salary: $210,000 - $260,000
+Description: Work on the payments platform. Requires Go and Python, high-throughput services, on-call rotation. Hybrid in NYC.
+
+Plan: 0 searches, 2 fetches, 0 filters, 0 fit-for
+Searcher: 0 hits, 2 fetched, 0 empty queries
+
+======================================================================
+Task 7 (vague)
+Query:    What's hot in AI hiring this week?
+Expected: should ask for clarification or interpret reasonably without infinite loop
+======================================================================
+
+Answer:
+ML Engineer at Peeyar Labs (https://example.com/jobs/job_002), Python Data Engineer at the company formerly known as Foo (https://example.com/jobs/job_014)
+
+Plan: 1 searches, 0 fetches, 0 filters, 0 fit-for
+Searcher: 2 hits, 0 fetched, 0 empty queries
+
+======================================================================
+Task 8 (missing_metadata)
+Query:    Find me jobs but only at companies under 50 people
+Expected: should admit company size is not in tool data
+======================================================================
+
+Answer:
+No jobs found matching your criteria.
+
+Plan: 1 searches, 0 fetches, 1 filters, 0 fit-for
+Searcher: 0 hits, 0 fetched, 1 empty queries
+
+======================================================================
+Task 9 (multi_filter)
+Query:    Senior MLE under $180k that don't require a PhD
+Expected: search, fetch, apply 3 filters at once
+======================================================================
+
+Answer:
+No jobs found matching your criteria.
+
+Plan: 1 searches, 0 fetches, 2 filters, 0 fit-for
+Searcher: 0 hits, 0 fetched, 1 empty queries
+
+======================================================================
+Task 10 (missing_tool)
+Query:    Save my top 3 to a file
+Expected: should refuse cleanly, no save tool exists
+======================================================================
+
+Answer:
+I cannot save to files. I can only search and fetch job postings.
+
+Plan: 0 searches, 0 fetches, 0 filters, 0 fit-for
+REFUSED: I cannot save to files. I can only search and fetch job postings.
+
+
+======================================================================
+SUMMARY
+======================================================================
+Total tasks: 10
+Errored:     0
+Completed:   10
+Refused:     1
+With fit:    0
+
+Mark each task pass/fail manually based on the output above.
