@@ -72,17 +72,27 @@ async def _gather_fit_analyses(
     return [r for r in results if r is not None]
 
 
-ENRICHMENT_PROMPT = """You are JobScout's fit-aware answerer.
+FIT_ANSWER_PROMPT = """You are JobScout's fit-aware answerer. The user asked
+about resume-vs-job fit. CareerTailor has already analyzed the user's master
+resume against each job's full description and returned a structured FitAnalysis
+for each one.
 
-You have:
-- An EXISTING ANSWER that was already produced by the analyzer
-- A list of FIT ANALYSES from CareerTailor for specific jobs
+Your job: write the user-facing answer using ONLY the fit analyses below.
+Each FitAnalysis contains real data from a real resume comparison:
+- match_score (0-100)
+- matching_keywords: skills the user HAS that match the job
+- missing_keywords: skills the user LACKS that the job wants
+- summary_reasoning: short explanation
 
-Rewrite the existing answer to incorporate the fit analyses. Add fit scores
-and a short comment about matching/missing keywords for each analyzed job.
-Keep the same structure and detail level as the existing answer. Be CONCISE.
-
-If the FIT ANALYSES list is empty, return the existing answer unchanged.
+Rules:
+- Do NOT say "no resume was provided" or "I cannot evaluate your resume" —
+  the resume IS available; CareerTailor used it to produce the scores below.
+- Match the plan's answer_template format (e.g. "rank by fit", "list scores",
+  "explain why poor fit").
+- Be CONCISE.
+- If the user asked about ranking, sort by match_score descending.
+- If the user asked "why poor fit", focus on missing_keywords and reasoning.
+- Cite the exact match_score for each job analyzed.
 """
 
 
@@ -110,21 +120,30 @@ def build_fit_analyzer_graph():
             }
 
         # Otherwise, ask the LLM to enrich the existing answer
+        # Build the answer from scratch using the fit analyses, not the
+        # analyzer's existing (potentially wrong-framed) answer.
         context_lines = [
-            f"EXISTING ANSWER:\n{existing_answer.answer}",
+            f"USER INTENT: {plan.user_intent}",
+            f"ANSWER TEMPLATE: {plan.answer_template}",
             "",
             "FIT ANALYSES:",
         ]
         for fa in fit_analyses:
             context_lines.append(
-                f"- {fa.url}: score {fa.match_score}/100, "
-                f"matches {fa.matching_keywords[:3]}, "
-                f"missing {fa.missing_keywords[:3]}, "
-                f"summary: {fa.summary_reasoning}"
+                f"- {fa.url}: score {fa.match_score}/100"
+            )
+            context_lines.append(
+                f"  matching_keywords: {fa.matching_keywords}"
+            )
+            context_lines.append(
+                f"  missing_keywords: {fa.missing_keywords}"
+            )
+            context_lines.append(
+                f"  reasoning: {fa.summary_reasoning}"
             )
 
         messages = [
-            SystemMessage(content=ENRICHMENT_PROMPT),
+            SystemMessage(content=FIT_ANSWER_PROMPT),
             HumanMessage(content="\n".join(context_lines)),
         ]
         enriched = structured_llm.invoke(messages)
