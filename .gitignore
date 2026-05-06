@@ -46,5 +46,5 @@ v1-run-results.txt
 # Editor configs (personal)
 .vscode/
 
-jobscout/**/SPEC.md
+jobscout/**/SPEC*.md
 jobscout/**/QUICKSTART.md

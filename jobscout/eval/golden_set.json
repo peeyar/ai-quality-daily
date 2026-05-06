@@ -1,0 +1,153 @@
+{
+  "version": "1.0",
+  "created": "2026-05-03",
+  "description": "20-task golden eval set for JobScout v1-v4. Four categories of 5 tasks each: search, multi-step, fit analysis, edge cases. Fit-analysis tasks (11-15) require v4's MCP integration with CareerTailor — earlier versions cannot pass them.",
+  "categories": {
+    "search": "Basic search, filtering, and retrieval. Single-tool calls with simple decompositions.",
+    "multi_step": "Multi-step reasoning: fetch-then-search, comparison, multi-filter. Tests planner decisions and tool orchestration.",
+    "fit_analysis": "Resume-vs-job fit scoring through CareerTailor MCP. Only v4 can attempt these; v1-v3 should return analyzer-only answers without scores.",
+    "edge_cases": "Refusals, vague queries, and out-of-scope requests. Tests honest refusal and loop termination."
+  },
+  "tasks": [
+    {
+      "id": 1,
+      "category": "search",
+      "query": "Find me Python jobs in Seattle",
+      "expected_behavior": "Search by Python keyword + Seattle location. Return matching jobs with title, company, URL.",
+      "carryover_from_v1": true
+    },
+    {
+      "id": 2,
+      "category": "search",
+      "query": "Find me 3 ML engineer roles at startups",
+      "expected_behavior": "Search ML/engineer keywords. Return up to 3 results. Acknowledge that 'startup' filter is not natively supported.",
+      "carryover_from_v1": true
+    },
+    {
+      "id": 3,
+      "category": "multi_step",
+      "query": "Senior backend roles paying over $200k",
+      "expected_behavior": "Search senior backend, fetch descriptions, post-filter by salary >= 200000.",
+      "carryover_from_v1": true
+    },
+    {
+      "id": 4,
+      "category": "multi_step",
+      "query": "Remote roles, no PhD required",
+      "expected_behavior": "Search remote roles, fetch descriptions, filter for jobs where PhD is not required.",
+      "carryover_from_v1": true
+    },
+    {
+      "id": 5,
+      "category": "multi_step",
+      "query": "Find me roles like the one at https://example.com/jobs/job_001",
+      "expected_behavior": "Direct fetch on job_001, then describe similar roles based on the fetched description.",
+      "carryover_from_v1": true
+    },
+    {
+      "id": 6,
+      "category": "multi_step",
+      "query": "Compare these two listings: job_001 and job_003",
+      "expected_behavior": "Two direct fetches, side-by-side structured comparison.",
+      "carryover_from_v1": true
+    },
+    {
+      "id": 7,
+      "category": "edge_cases",
+      "query": "What's hot in AI hiring this week?",
+      "expected_behavior": "Vague query. Either ask for clarification or interpret reasonably without infinite loop. Should not invent data.",
+      "carryover_from_v1": true
+    },
+    {
+      "id": 8,
+      "category": "edge_cases",
+      "query": "Find me jobs but only at companies under 50 people",
+      "expected_behavior": "Refuse cleanly — company size is not in tool data. Do not invent results.",
+      "carryover_from_v1": true
+    },
+    {
+      "id": 9,
+      "category": "multi_step",
+      "query": "Senior MLE under $180k that don't require a PhD",
+      "expected_behavior": "Search senior MLE, fetch descriptions, apply two post-fetch filters (salary, PhD).",
+      "carryover_from_v1": true
+    },
+    {
+      "id": 10,
+      "category": "edge_cases",
+      "query": "Save my top 3 to a file",
+      "expected_behavior": "Refuse cleanly via planner refusal_reason. No save tool exists.",
+      "carryover_from_v1": true
+    },
+    {
+      "id": 11,
+      "category": "fit_analysis",
+      "query": "How well does my resume match the job at https://example.com/jobs/job_001?",
+      "expected_behavior": "v4: fetch job_001, set analyze_fit_for, return CareerTailor fit score with matching/missing keywords. v1-v3: should return analyzer's best-effort answer without a real fit score.",
+      "carryover_from_v1": false
+    },
+    {
+      "id": 12,
+      "category": "fit_analysis",
+      "query": "Rank these jobs by fit for me: job_001 and job_003",
+      "expected_behavior": "v4: fetch both URLs, two parallel CareerTailor calls, ranked output with scores. v1-v3: cannot rank by fit, should not invent scores.",
+      "carryover_from_v1": false
+    },
+    {
+      "id": 13,
+      "category": "fit_analysis",
+      "query": "Which Seattle Python job is the best fit for me?",
+      "expected_behavior": "v4: search Seattle+Python, fetch results, run fit analysis on each, return the highest-scoring one. Compound: search + fit. v1-v3: search returns results, no fit ranking.",
+      "carryover_from_v1": false
+    },
+    {
+      "id": 14,
+      "category": "fit_analysis",
+      "query": "Why is my resume a poor fit for job_002?",
+      "expected_behavior": "v4: fetch job_002, run fit analysis, surface missing_keywords and reasoning. Tests retrieval of CareerTailor's structured 'missing' field. v1-v3: cannot answer authoritatively.",
+      "carryover_from_v1": false
+    },
+    {
+      "id": 15,
+      "category": "fit_analysis",
+      "query": "Find me roles I'm at least 70% match for",
+      "expected_behavior": "Genuinely hard: requires search + fetch + fit + threshold filter. v4: deliberate failure expected — the planner has no native threshold-filter mechanism for fit scores. Documents the next bottleneck for future versions. v1-v3: cannot attempt at all.",
+      "carryover_from_v1": false
+    },
+    {
+      "id": 16,
+      "category": "search",
+      "query": "Show me 5 jobs in payments",
+      "expected_behavior": "Search 'payments' keyword, return up to 5 job results with title, company, URL.",
+      "carryover_from_v1": false
+    },
+    {
+      "id": 17,
+      "category": "search",
+      "query": "Junior frontend roles, remote only",
+      "expected_behavior": "Search frontend with junior seniority + remote filter. Return matching roles.",
+      "carryover_from_v1": false
+    },
+    {
+      "id": 18,
+      "category": "search",
+      "query": "Jobs at Initech",
+      "expected_behavior": "Filter jobs by company. Return all Initech roles with title and URL.",
+      "carryover_from_v1": false
+    },
+    {
+      "id": 19,
+      "category": "edge_cases",
+      "query": "What's the email for HR at job_001?",
+      "expected_behavior": "Refuse cleanly — contact information is not in tool data. Do not invent an email address.",
+      "carryover_from_v1": false
+    },
+    {
+      "id": 20,
+      "category": "edge_cases",
+      "query": "Update my resume to match job_001",
+      "expected_behavior": "Refuse cleanly — JobScout has no resume-modification tool. Even with CareerTailor wrapped via MCP, this MCP server only exposes analyze_job_fit, not resume rewriting. Should not attempt to edit anything.",
+      "carryover_from_v1": false
+    }
+  ]
+}

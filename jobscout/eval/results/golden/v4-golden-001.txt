@@ -1,0 +1,232 @@
+# JobScout v4 — Golden Eval Run
+
+Total tasks: 20
+
+
+======================================================================
+Task 1 (search)
+Query:    Find me Python jobs in Seattle
+Expected: Search by Python keyword + Seattle location. Return matching jobs with title, company, URL.
+======================================================================
+
+Answer:
+Senior Python Engineer at Rajesh Corp (https://example.com/jobs/job_001), Python Backend Developer at Initech (https://example.com/jobs/job_008)
+
+
+======================================================================
+Task 2 (search)
+Query:    Find me 3 ML engineer roles at startups
+Expected: Search ML/engineer keywords. Return up to 3 results. Acknowledge that 'startup' filter is not natively supported.
+======================================================================
+
+Answer:
+1. ML Engineer at Peeyar Labs (https://example.com/jobs/job_002) 2. Senior ML Engineer at Foom (https://example.com/jobs/job_007) 3. Senior ML Engineer at Nimbus (https://example.com/jobs/job_015)
+
+
+======================================================================
+Task 3 (multi_step)
+Query:    Senior backend roles paying over $200k
+Expected: Search senior backend, fetch descriptions, post-filter by salary >= 200000.
+======================================================================
+
+Answer:
+Senior Backend Engineer at MegaScale Systems ($210,000 - $260,000)
+
+
+======================================================================
+Task 4 (multi_step)
+Query:    Remote roles, no PhD required
+Expected: Search remote roles, fetch descriptions, filter for jobs where PhD is not required.
+======================================================================
+
+Answer:
+No jobs found matching your criteria.
+
+
+======================================================================
+Task 5 (multi_step)
+Query:    Find me roles like the one at https://example.com/jobs/job_001
+Expected: Direct fetch on job_001, then describe similar roles based on the fetched description.
+======================================================================
+
+Answer:
+Keywords: "Senior Python Engineer" and "large-scale data services". Similar roles would include Senior Data Engineer, Senior Backend Engineer, or Research Engineer positions, especially those focusing on Python and distributed systems.
+
+
+======================================================================
+Task 6 (multi_step)
+Query:    Compare these two listings: job_001 and job_003
+Expected: Two direct fetches, side-by-side structured comparison.
+======================================================================
+
+Answer:
+Senior Python Engineer (Rajesh Corp) vs. Senior Backend Engineer (MegaScale Systems)
+
+Rajesh Corp:
+Title: Senior Python Engineer
+Location: Seattle, WA
+Remote: hybrid
+Salary: $180,000 - $220,000
+Description: Build large-scale data services. Requires 6+ years Python, distributed systems, and a PhD or equivalent research experience. Hybrid in Seattle, 3 days a week.
+
+MegaScale Systems:
+Title: Senior Backend Engineer
+Location: New York, NY
+Remote: hybrid
+Salary: $210,000 - $260,000
+Description: Work on the payments platform. Requires Go and Python, high-throughput services, on-call rotation. Hybrid in NYC.
+
+
+======================================================================
+Task 7 (edge_cases)
+Query:    What's hot in AI hiring this week?
+Expected: Vague query. Either ask for clarification or interpret reasonably without infinite loop. Should not invent data.
+======================================================================
+
+Answer:
+ML Engineer at Peeyar Labs (https://example.com/jobs/job_002), Python Data Engineer at the company formerly known as Foo (https://example.com/jobs/job_014)
+
+
+======================================================================
+Task 8 (edge_cases)
+Query:    Find me jobs but only at companies under 50 people
+Expected: Refuse cleanly — company size is not in tool data. Do not invent results.
+======================================================================
+
+Answer:
+No jobs found matching your criteria.
+
+
+======================================================================
+Task 9 (multi_step)
+Query:    Senior MLE under $180k that don't require a PhD
+Expected: Search senior MLE, fetch descriptions, apply two post-fetch filters (salary, PhD).
+======================================================================
+
+Answer:
+No jobs found matching your criteria.
+
+
+======================================================================
+Task 10 (edge_cases)
+Query:    Save my top 3 to a file
+Expected: Refuse cleanly via planner refusal_reason. No save tool exists.
+======================================================================
+
+Answer:
+I cannot save to files. I can only search and fetch job postings.
+
+
+======================================================================
+Task 11 (fit_analysis)
+Query:    How well does my resume match the job at https://example.com/jobs/job_001?
+Expected: v4: fetch job_001, set analyze_fit_for, return CareerTailor fit score with matching/missing keywords. v1-v3: should return analyzer's best-effort answer without a real fit score.
+======================================================================
+
+Answer:
+For job_001, your resume has a fit score of 35/100. You match well with 'Distributed systems', 'Large-scale data services', 'Microservices', 'AWS', 'Kafka', 'MongoDB', 'DynamoDB', 'SQL', 'API Gateway', 'Terraform', 'Docker', 'Jenkins', 'CI/CD pipelines', 'OpenShift', 'ServiceMesh', 'LangChain', 'CrewAI', 'LLMOps', 'DeepEval', 'Arize Phoenix', 'RAG', and 'Vector Embeddings'. Key missing skills include 'Python (as a primary development language)', '6+ years Python experience', and 'PhD or equivalent research experience (formal)'. The low score is mainly due to the absence of explicit Python experience, which is a core requirement for this Senior Python Engineer role.
+
+
+======================================================================
+Task 12 (fit_analysis)
+Query:    Rank these jobs by fit for me: job_001 and job_003
+Expected: v4: fetch both URLs, two parallel CareerTailor calls, ranked output with scores. v1-v3: cannot rank by fit, should not invent scores.
+======================================================================
+
+Answer:
+Job 003 (https://example.com/jobs/job_003) has a fit score of 65/100. Job 001 (https://example.com/jobs/job_001) has a fit score of 15/100.
+
+
+======================================================================
+Task 13 (fit_analysis)
+Query:    Which Seattle Python job is the best fit for me?
+Expected: v4: search Seattle+Python, fetch results, run fit analysis on each, return the highest-scoring one. Compound: search + fit. v1-v3: search returns results, no fit ranking.
+======================================================================
+
+Answer:
+I cannot identify the best fitting job or explain why, as the job descriptions were not provided in the SEARCHER_RESULT.
+
+
+======================================================================
+Task 14 (fit_analysis)
+Query:    Why is my resume a poor fit for job_002?
+Expected: v4: fetch job_002, run fit analysis, surface missing_keywords and reasoning. Tests retrieval of CareerTailor's structured 'missing' field. v1-v3: cannot answer authoritatively.
+======================================================================
+
+Answer:
+For the job at https://example.com/jobs/job_002, your resume shows a strong fit with a score of 90/100. The primary reasons it's not a perfect match are the lack of explicit mention of Python and specific ML frameworks like TensorFlow, PyTorch, and Scikit-learn. While your extensive experience in advanced AI/MLOps tools implies proficiency in these areas, they are not directly stated.
+
+
+======================================================================
+Task 15 (fit_analysis)
+Query:    Find me roles I'm at least 70% match for
+Expected: Genuinely hard: requires search + fetch + fit + threshold filter. v4: deliberate failure expected — the planner has no native threshold-filter mechanism for fit scores. Documents the next bottleneck for future versions. v1-v3: cannot attempt at all.
+======================================================================
+
+Answer:
+No jobs found matching your criteria.
+
+
+======================================================================
+Task 16 (search)
+Query:    Show me 5 jobs in payments
+Expected: Search 'payments' keyword, return up to 5 job results with title, company, URL.
+======================================================================
+
+Answer:
+1. Senior Backend Engineer at MegaScale Systems (https://example.com/jobs/job_003)
+
+
+======================================================================
+Task 17 (search)
+Query:    Junior frontend roles, remote only
+Expected: Search frontend with junior seniority + remote filter. Return matching roles.
+======================================================================
+
+Answer:
+No jobs found matching your criteria.
+
+
+======================================================================
+Task 18 (search)
+Query:    Jobs at Initech
+Expected: Filter jobs by company. Return all Initech roles with title and URL.
+======================================================================
+
+Answer:
+No jobs found at Initech.
+
+
+======================================================================
+Task 19 (edge_cases)
+Query:    What's the email for HR at job_001?
+Expected: Refuse cleanly — contact information is not in tool data. Do not invent an email address.
+======================================================================
+
+Answer:
+I cannot provide HR contact information. Job postings typically do not include direct HR email addresses, and my tools are not designed to extract such information.
+
+
+======================================================================
+Task 20 (edge_cases)
+Query:    Update my resume to match job_001
+Expected: Refuse cleanly — JobScout has no resume-modification tool. Even with CareerTailor wrapped via MCP, this MCP server only exposes analyze_job_fit, not resume rewriting. Should not attempt to edit anything.
+======================================================================
+
+Answer:
+To improve your resume's fit for the job at https://example.com/jobs/job_001 (15/100 match score), focus on addressing these key areas:1.  **Python Experience**: The job requires 6+ years of Python, and your resume currently shows a complete absence of this. If you have any Python experience, ensure it is prominently featured, detailing your years of experience and specific projects. If not, this is a critical gap for a Senior Python Engineer role.2.  **Research Experience**: Add any PhD or equivalent research experience you possess, as this is a missing keyword.Highlighting these areas will directly address the primary reasons for the current poor fit.
+
+
+======================================================================
+SUMMARY
+======================================================================
+Completed: 20/20
+Errored:   0/20
+
+By category:
+  search         5/5 completed
+  multi_step     5/5 completed
+  fit_analysis   5/5 completed
+  edge_cases     5/5 completed
+
+Mark each task pass/fail manually based on the output above.
