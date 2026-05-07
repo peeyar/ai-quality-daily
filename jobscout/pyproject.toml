@@ -7,7 +7,7 @@ readme = "README.md"
 package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = ">=3.11,<3.15"
 
 # Core agent stack — needed from v1
 langgraph = "^0.2.0"
@@ -24,6 +24,9 @@ mcp = "^1.0"
 # arize-phoenix = "*"             # v5 / P7
 # deepeval = "*"                  # v5 / P7
 # llmlingua = "*"                 # v7 / P12
+arize-phoenix = "^15.4.0"
+openinference-instrumentation-langchain = "^0.1.63"
+openinference-instrumentation-mcp = "^2.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0"

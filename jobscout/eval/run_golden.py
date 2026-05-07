@@ -1,7 +1,7 @@
 """Cross-version runner for the golden eval set.
 
 Loads eval/golden_set.json and runs all 20 tasks against each JobScout version
-(v1-v4). Saves one results file per version under eval/results/golden/.
+(v1-v5). Saves one results file per version under eval/results/golden/.
 
 Usage from jobscout/ root:
 
@@ -9,11 +9,13 @@ Usage from jobscout/ root:
     poetry run python -m eval.run_golden --version v2
     poetry run python -m eval.run_golden --version v3
     poetry run python -m eval.run_golden --version v4
-    poetry run python -m eval.run_golden --version all   # runs all four sequentially
+    poetry run python -m eval.run_golden --version v5   # also requires Phoenix server
+    poetry run python -m eval.run_golden --version all   # runs all five sequentially
 
-Important: v4 requires the CareerTailor MCP server to be running and the
-V4_DEFAULT_USER_ID env var to be set. If unavailable, fit_analysis tasks will
-gracefully degrade (no scores) but the runner won't crash.
+Important: v4 and v5 require the CareerTailor MCP server to be running and the
+V4_DEFAULT_USER_ID env var to be set. v5 additionally needs the Phoenix server
+running on http://localhost:6006. If MCP is unavailable, fit_analysis tasks
+will gracefully degrade (no scores) but the runner won't crash.
 """
 import argparse
 import json
@@ -53,6 +55,17 @@ VERSION_REGISTRY = {
     },
     "v4": {
         "build": lambda: __import__("v4.orchestrator", fromlist=["build_graph"]).build_graph(),
+        "initial_state": lambda query: {
+            "user_query": query,
+            "plan": None,
+            "searcher_result": None,
+            "final_answer": None,
+            "fit_analyses": [],
+        },
+        "extract_answer": lambda result: result["final_answer"].answer,
+    },
+    "v5": {
+        "build": lambda: __import__("v5.orchestrator", fromlist=["build_graph"]).build_graph(),
         "initial_state": lambda query: {
             "user_query": query,
             "plan": None,
@@ -143,14 +156,14 @@ def main():
     parser = argparse.ArgumentParser(description="Run the golden eval set against one or more JobScout versions.")
     parser.add_argument(
         "--version",
-        choices=["v1", "v2", "v3", "v4", "all"],
+        choices=["v1", "v2", "v3", "v4", "v5", "all"],
         required=True,
-        help="Which version to run. 'all' runs v1-v4 sequentially.",
+        help="Which version to run. 'all' runs v1-v5 sequentially.",
     )
     args = parser.parse_args()
 
     golden_set = load_golden_set()
-    versions = ["v1", "v2", "v3", "v4"] if args.version == "all" else [args.version]
+    versions = ["v1", "v2", "v3", "v4", "v5"] if args.version == "all" else [args.version]
 
     output_dir = Path(__file__).parent / "results" / "golden"
     output_dir.mkdir(parents=True, exist_ok=True)

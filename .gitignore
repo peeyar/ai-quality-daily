@@ -48,3 +48,7 @@ v1-run-results.txt
 
 jobscout/**/SPEC*.md
 jobscout/**/QUICKSTART.md
+
+# Post assets and screenshots (local only)
+jobscout/post_assets/
+pics/
