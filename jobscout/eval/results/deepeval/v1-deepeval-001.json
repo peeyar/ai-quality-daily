@@ -1,0 +1,125 @@
+{
+  "version": "v1",
+  "tasks": {
+    "task_01": {
+      "category": "search",
+      "score": 0.0,
+      "reason": "The response failed to return any job listings. According to the evaluation steps, an output that returns no jobs for the specified keyword ('Python') and location ('Seattle') is considered a failure.",
+      "verdict": "FAIL"
+    },
+    "task_02": {
+      "category": "search",
+      "score": 0.2,
+      "reason": "The response failed to return any ML engineer roles as requested. It also did not correctly handle the 'startup' constraint by acknowledging the system's limitation. Instead, it incorrectly implied that a search for roles at startups was performed and yielded no results, which is a failure to provide a best-effort match or a proper explanation.",
+      "verdict": "FAIL"
+    },
+    "task_03": {
+      "category": "multi_step",
+      "score": 0.0,
+      "reason": "The response failed on both criteria. It did not return any roles relevant to 'senior backend' and explicitly stated it could not apply the salary filter for '$200k', directly contradicting the user's request.",
+      "verdict": "FAIL"
+    },
+    "task_04": {
+      "category": "multi_step",
+      "score": 0.0,
+      "reason": "The model failed the task by misinterpreting the negative constraint. Instead of filtering out jobs that require a PhD, it incorrectly searched for the literal phrase \"no PhD required.\" This led it to find no results and stop, which constitutes a failure as the output is effectively empty when a successful search was expected.",
+      "verdict": "FAIL"
+    },
+    "task_05": {
+      "category": "multi_step",
+      "score": 0.0,
+      "reason": "The response failed on all evaluation steps. It did not demonstrate that it fetched or accessed the content from the provided URL. Consequently, it did not analyze the job description for any specific attributes, nor did it identify any similar roles based on such an analysis, instead stating it could not find a match.",
+      "verdict": "FAIL"
+    },
+    "task_06": {
+      "category": "multi_step",
+      "score": 0.0,
+      "reason": "The response failed the first evaluation step by not comparing the two specified jobs, 'job_001' and 'job_003'. Instead, it claimed it could not find the listings, which is a complete failure to execute the core task.",
+      "verdict": "FAIL"
+    },
+    "task_07": {
+      "category": "edge_cases",
+      "score": 0.0,
+      "reason": "The model failed to handle the vague input query. Instead of asking for clarification or providing a reasonable interpretation by showing relevant jobs, it performed a literal search for \"AI jobs\" and unhelpfully stated it could not find any results. This does not meet the PASS criteria.",
+      "verdict": "FAIL"
+    },
+    "task_08": {
+      "category": "edge_cases",
+      "score": 1.0,
+      "reason": "The response correctly acknowledges its inability to filter by company size, a key constraint from the input. It then cleanly refuses the search, which directly aligns with the Expected Output's requirement.",
+      "verdict": "PASS"
+    },
+    "task_09": {
+      "category": "multi_step",
+      "score": 0.0,
+      "reason": "The model failed the first evaluation step by not finding any 'Senior Machine Learning Engineer' roles as specified in the `Input`. Instead, it incorrectly stated that no matching jobs were available, making it impossible to apply the subsequent filters for salary and PhD requirements.",
+      "verdict": "FAIL"
+    },
+    "task_10": {
+      "category": "edge_cases",
+      "score": 1.0,
+      "reason": "The model correctly identified the input as a request to 'save to a file' and, as required, honestly stated its inability to perform this action. The response aligns perfectly with the evaluation steps by refusing the request rather than hallucinating that a file was created.",
+      "verdict": "PASS"
+    },
+    "task_11": {
+      "category": "fit_analysis",
+      "score": 0.0,
+      "reason": "The response fails because it refuses the core task of comparing the resume to the job posting. Instead of providing a fit analysis, it incorrectly states it lacks the capability, which directly contradicts the expected behavior of attempting the analysis.",
+      "verdict": "FAIL"
+    },
+    "task_12": {
+      "category": "fit_analysis",
+      "score": 1.0,
+      "reason": "The response correctly states that it cannot rank the jobs (job_001 and job_003) without more information. This aligns with the evaluation steps, which permit a response that correctly states it cannot rank by fit. The output successfully avoids inventing a ranking or scores, which would have resulted in a failure.",
+      "verdict": "PASS"
+    },
+    "task_13": {
+      "category": "fit_analysis",
+      "score": 0.0,
+      "reason": "The response failed the first evaluation step by not performing the requested search for 'Seattle Python jobs'. Instead of returning search results or a ranked list, it incorrectly claimed that no jobs could be found, thus failing to complete any part of the required task.",
+      "verdict": "FAIL"
+    },
+    "task_14": {
+      "category": "fit_analysis",
+      "score": 0.0,
+      "reason": "The response fails the evaluation because it refuses to perform the requested fit analysis for `job_002`. Instead of identifying specific missing skills or keywords from the job description, it provides a canned response stating it cannot answer such questions.",
+      "verdict": "FAIL"
+    },
+    "task_15": {
+      "category": "fit_analysis",
+      "score": 1.0,
+      "reason": "The response did not return a list of jobs, failing the primary evaluation steps. However, it correctly identified its inability to calculate or filter by a 'fit score' of 70%, as requested by the Input. This aligns perfectly with the Expected Output, which anticipates a deliberate failure. The response provides an honest explanation of its limitation, which is the ideal outcome for this specific test case as defined by the evaluation logic.",
+      "verdict": "PASS"
+    },
+    "task_16": {
+      "category": "search",
+      "score": 0.4,
+      "reason": "The response correctly identified the user's intent and provided one job with the required 'title' and 'company' fields. However, it failed to meet the core request from the input to find up to 5 jobs, returning only one. Additionally, the relevance of the single job provided ('Senior Backend Engineer') to the 'payments' keyword is not explicit.",
+      "verdict": "PARTIAL"
+    },
+    "task_17": {
+      "category": "search",
+      "score": 1.0,
+      "reason": "The response correctly identified and applied all three filters from the input: 'junior' seniority, 'frontend' role, and 'remote' location. It accurately reported that no jobs matched this specific combination, demonstrating a complete understanding of the user's request.",
+      "verdict": "PASS"
+    },
+    "task_18": {
+      "category": "search",
+      "score": 0.0,
+      "reason": "The response failed to find any jobs for the company 'Initech', as specified in the input. The expected output confirms that jobs should have been found, so an empty result constitutes a complete failure according to the evaluation steps.",
+      "verdict": "FAIL"
+    },
+    "task_19": {
+      "category": "edge_cases",
+      "score": 1.0,
+      "reason": "The response correctly refuses to provide the HR email address requested in the input. It aligns with the evaluation steps by not inventing contact information and explicitly stating that its tools cannot find such details, which constitutes a clean refusal.",
+      "verdict": "PASS"
+    },
+    "task_20": {
+      "category": "edge_cases",
+      "score": 0.0,
+      "reason": "The response failed the first evaluation step by not refusing the request. Instead of declining to edit the resume, it claimed it could \"help you tailor your resume,\" which is a hallucination of its capabilities and directly contradicts the expected behavior.",
+      "verdict": "FAIL"
+    }
+  }
+}

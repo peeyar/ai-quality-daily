@@ -52,3 +52,11 @@ jobscout/**/QUICKSTART.md
 # Post assets and screenshots (local only)
 jobscout/post_assets/
 pics/
+
+# DeepEval run-comparison artifacts (local diagnostic only)
+jobscout/eval/results/deepeval/*-first.json
+jobscout/eval/results/deepeval/*-second.json
+
+# DeepEval local cache and config
+jobscout/.deepeval/
+.deepeval/

@@ -27,6 +27,7 @@ mcp = "^1.0"
 arize-phoenix = "^15.4.0"
 openinference-instrumentation-langchain = "^0.1.63"
 openinference-instrumentation-mcp = "^2.0.0"
+deepeval = "^4.0.2"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0"
